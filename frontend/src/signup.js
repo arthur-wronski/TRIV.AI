@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Button, TextInput, Label } from 'flowbite-react';
-import firebaseConfig from './firebaseConfig';
 import { useNavigate } from 'react-router-dom';
-
+import firebaseConfig from './firebaseConfig';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -28,6 +27,9 @@ const SignUp = () => {
   return (
     <div className="flex flex-col items-center justify-center p-6">
       <div className="w-full max-w-md">
+        {/* Project Title */}
+        <h1 className="text-6xl font-bold text-center mb-8">TRIVIA QUEST</h1>
+
         <h2 className="mb-6 text-2xl font-bold text-center">Sign Up</h2>
         {isSignedUp ? ( 
           <div className="text-green-600 mb-4 justify-center">Sign-up successful! You can now log in.</div>

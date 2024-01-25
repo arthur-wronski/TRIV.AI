@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Button, TextInput, Label } from 'flowbite-react';
+import { useNavigate } from 'react-router-dom'; 
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); 
 
   const handleSignIn = (event) => {
     event.preventDefault();
@@ -13,7 +15,7 @@ const SignIn = () => {
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Handle successful sign in
+        navigate('/quizSetup');
       })
       .catch((error) => {
         setError(error.message);
