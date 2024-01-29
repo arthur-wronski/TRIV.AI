@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Button, TextInput, Label, Select } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
+import { addDoc, collection, getFirestore, serverTimestamp} from 'firebase/firestore';
+import {app} from './firebaseConfig'
 
 const QuizConfigForm = () => {
   const [numberOfQuestions, setNumberOfQuestions] = useState('');
@@ -8,7 +10,24 @@ const QuizConfigForm = () => {
   const [difficulty, setDifficulty] = useState('easy');
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const db = getFirestore(app);
 
+  const saveQuiz = async (quizData) => {
+    try {
+      const docRef = await addDoc(collection(db, 'quizzes'), {
+        title: theme,
+        quizData,
+        highestScore: 0,
+        difficulty: difficulty,
+        timestamp: serverTimestamp(),
+        numQuestions: parseInt(numberOfQuestions),
+      });
+
+      console.log('Quiz saved successfully with ID: ', docRef.id);
+    } catch (error) {
+      console.error('Error saving quiz:', error);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,6 +46,7 @@ const QuizConfigForm = () => {
 
       const quizText = await response.json();
       const formattedQuiz = formatQuiz(quizText);
+      saveQuiz(formattedQuiz);
       navigate('/quizgen', { state: { quizData: formattedQuiz } });
     } catch (error) {
       console.error('Error generating quiz:', error);

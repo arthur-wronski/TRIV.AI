@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Button, TextInput, Label } from 'flowbite-react';
-import { useNavigate } from 'react-router-dom';
-import firebaseConfig from './firebaseConfig';
+import {app} from './firebaseConfig';
 import { Link } from 'react-router-dom';
 
 const SignUp = () => {
@@ -10,11 +9,10 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [isSignedUp, setIsSignedUp] = useState(false); 
-  const navigate = useNavigate();
 
   const handleSignUp = (event) => {
     event.preventDefault();
-    const auth = getAuth();
+    const auth = getAuth(app);
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -63,9 +61,9 @@ const SignUp = () => {
         )}
         <div className="mt-4">
           <p>Already have an account?</p>
-          <Button>
-            <Link to="/signin">Sign In</Link>
-          </Button>
+          <Link to="/signin">
+           <Button>Sign In</Button>
+          </Link>
         </div>
       </div>
     </div>

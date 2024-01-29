@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Button, TextInput, Label } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom'; 
+import {app} from './firebaseConfig'
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -11,11 +12,11 @@ const SignIn = () => {
 
   const handleSignIn = (event) => {
     event.preventDefault();
-    const auth = getAuth();
-
+    const auth = getAuth(app);
+  
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        navigate('/quizSetup');
+        navigate('/quizGen');
       })
       .catch((error) => {
         setError(error.message);
