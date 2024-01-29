@@ -3,6 +3,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Button, TextInput, Label } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 import firebaseConfig from './firebaseConfig';
+import { Link } from 'react-router-dom';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -62,7 +63,9 @@ const SignUp = () => {
         )}
         <div className="mt-4">
           <p>Already have an account?</p>
-          <Button onClick={() => navigate('/signin')}>Sign In</Button>
+          <Button>
+            <Link to="/signin">Sign In</Link>
+          </Button>
         </div>
       </div>
     </div>
