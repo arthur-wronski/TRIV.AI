@@ -8,13 +8,11 @@ const Results = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { score, total } = location.state;
-    const { quizDocId } = useParams(); // Get the quiz document ID from the URL
-    console.log(quizDocId);
+    const { quizDocId } = useParams();
 
     const [highestScore, setHighestScore] = useState(0);
 
     useEffect(() => {
-        // Fetch the existing highest score when the component mounts
         fetchHighestScore(quizDocId);
     }, [quizDocId]);
 
@@ -28,7 +26,7 @@ const Results = () => {
             if (quizDocSnap.exists()) {
                 const quiz = quizDocSnap.data();
                 const currentHighestScore = quiz.highestScore || 0;
-                setHighestScore(currentHighestScore);
+                setHighestScore(currentHighestScore); 
             } else {
                 console.error('Quiz document not found.');
             }
@@ -38,26 +36,24 @@ const Results = () => {
     };
 
     const handlePlayAgain = () => {
-        navigate(`/playquiz/${quizDocId}`); // Return to the quiz
+        navigate(`/playquiz/${quizDocId}`);
     };
 
     const handleExit = () => {
-        navigate('/quizgen');
+        navigate('/quizhub');
     };
 
     const updateHighestScore = async () => {
-        // Check if the current score is higher than the existing highest score
         if (score > highestScore) {
             const db = getFirestore(app);
             const quizDocRef = doc(db, 'quizzes', quizDocId);
 
             try {
-                // Update the highest score in Firebase
                 await updateDoc(quizDocRef, {
                     highestScore: score,
-                    timestamp: serverTimestamp(), // Update the timestamp to reflect the change
+                    timestamp: serverTimestamp(),
                 });
-                setHighestScore(score); // Update the local state
+                setHighestScore(score);
                 console.log('Highest score updated successfully.');
             } catch (error) {
                 console.error('Error updating highest score:', error);
@@ -65,17 +61,19 @@ const Results = () => {
         }
     };
 
-    // Call the function to update the highest score when the component renders
     useEffect(() => {
         updateHighestScore();
     }, []);
 
     return (
-        <div>
-            <h2>Your Score: {score} / {total}</h2>
-            <p>Highest Score: {highestScore}</p>
-            <Button onClick={handlePlayAgain}>Play Again</Button>
-            <Button onClick={handleExit}>Exit</Button>
+        <div className="flex flex-col items-center justify-center h-screen">
+            <h2 className="text-4xl font-bold mb-4">Your Score: {score} / {total}</h2>
+            <p className="text-2xl">Highest Score: {highestScore}</p>
+            <div className="mt-6">
+                <Button gradientMonochrome="cyan" onClick={handlePlayAgain}>Play Again</Button>
+                <div className="h-4"></div>
+                <Button gradientMonochrome="failure" onClick={handleExit}>Exit</Button>
+            </div>
         </div>
     );
 };

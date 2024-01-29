@@ -11,7 +11,7 @@ const PlayQuiz = () => {
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [quizData, setQuizData] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     // Fetch quiz data based on the document ID when the component mounts
@@ -28,7 +28,7 @@ const PlayQuiz = () => {
       if (quizDocSnap.exists()) {
         const quiz = quizDocSnap.data();
         setQuizData(quiz.quizData);
-        setLoading(false); // Data is available, set loading to false
+        setLoading(false);
       } else {
         console.error('Quiz document not found.');
       }
@@ -58,28 +58,31 @@ const PlayQuiz = () => {
   };
 
   if (loading) {
-    return <p>Loading...</p>; // Display a loading message while data is being fetched
+    return <p>Loading...</p>;
   }
 
   const currentQuestion = quizData[currentQuestionIndex];
 
   return (
-    <div className="quiz-container flex flex-col items-center justify-center">
-      <h3>{currentQuestion.question}</h3>
-      <div className="options-grid">
+    <div className="quiz-container flex flex-col items-center justify-center mt-4">
+      <h1 className="text-4xl font-bold mb-4">{currentQuestion.question}</h1>
+      <div className="options-grid space-y-2">
         {Object.entries(currentQuestion.options).map(([key, value]) => (
           <Button
+            outline
+            gradientDuoTone={selectedAnswer === key ? (key === currentQuestion.correctAnswer ? 'greenToGreen' : 'redToRed') : 'purpleToBlue'}
             key={key}
             onClick={() => handleAnswer(key)}
-            className={`option-button ${selectedAnswer === key ? 'selected' : ''}`}
+            className="option-button"
           >
             {value}
           </Button>
         ))}
       </div>
-      {/* Optional feedback message */}
       {selectedAnswer && (
-        <p>{selectedAnswer === currentQuestion.correctAnswer ? 'Correct!' : 'Incorrect!'}</p>
+        <p className={selectedAnswer === currentQuestion.correctAnswer ? 'text-green-500' : 'text-red-500'}>
+          {selectedAnswer === currentQuestion.correctAnswer ? 'Correct!' : 'Incorrect!'}
+        </p>
       )}
     </div>
   );

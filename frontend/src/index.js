@@ -5,7 +5,7 @@ import './index.css';
 import SignUp from './signUp';
 import SignIn from './signIn';
 import QuizSetup from './quizSetup';
-import QuizGen from './quizGen';
+import QuizHub from './quizHub';
 import PlayQuiz from './playQuiz';
 import Results from './Results';
 import { getFirestore } from "firebase/firestore";
@@ -36,7 +36,7 @@ root.render(
         <Route path="/" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/quizsetup" element={<QuizSetup />} />
-        <Route path="/quizgen" element={<QuizGen />} />
+        <Route path="/quizhub" element={<QuizHub />} />
         <Route path="/playquiz/:quizDocId" element={<PlayQuiz />} />
         <Route path="/results/:quizDocId" element={<Results />} />
       </Routes>

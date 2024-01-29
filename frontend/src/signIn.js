@@ -16,7 +16,7 @@ const SignIn = () => {
   
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        navigate('/quizGen');
+        navigate('/quizhub');
       })
       .catch((error) => {
         setError(error.message);
@@ -26,6 +26,7 @@ const SignIn = () => {
   return (
     <div className="flex flex-col items-center justify-center p-6">
       <div className="w-full max-w-md">
+      <h1 className="text-6xl font-bold text-center mb-8">Triv.IA</h1>
         <h2 className="mb-6 text-2xl font-bold text-center">Sign In</h2>
         <form onSubmit={handleSignIn} className="flex flex-col gap-4">
           <div>
@@ -50,7 +51,7 @@ const SignIn = () => {
             />
           </div>
           {error && <p className="text-red-600">{error}</p>}
-          <Button type="submit">Sign In</Button>
+          <Button gradientDuoTone="tealToLime" type="submit">Sign In</Button>
         </form>
       </div>
     </div>

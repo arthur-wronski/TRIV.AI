@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { Button, TextInput, Label } from 'flowbite-react';
+import { Button, TextInput, Label, Forms } from 'flowbite-react';
 import {app} from './firebaseConfig';
 import { Link } from 'react-router-dom';
 
@@ -26,8 +26,7 @@ const SignUp = () => {
   return (
     <div className="flex flex-col items-center justify-center p-6">
       <div className="w-full max-w-md">
-        {/* Project Title */}
-        <h1 className="text-6xl font-bold text-center mb-8">Trivia Test</h1>
+        <h1 className="text-6xl font-bold text-center mb-8">Triv.IA</h1>
 
         <h2 className="mb-6 text-2xl font-bold text-center">Sign Up</h2>
         {isSignedUp ? ( 
@@ -56,13 +55,13 @@ const SignUp = () => {
               />
             </div>
             {error && <p className="text-red-600">{error}</p>}
-            <Button type="submit">Sign Up</Button>
+            <Button gradientDuoTone="tealToLime" type="submit">Sign Up</Button>
           </form>
         )}
         <div className="mt-4">
           <p>Already have an account?</p>
           <Link to="/signin">
-           <Button>Sign In</Button>
+           <Button gradientDuoTone="tealToLime">Sign In</Button>
           </Link>
         </div>
       </div>

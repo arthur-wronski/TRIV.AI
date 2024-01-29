@@ -47,7 +47,7 @@ const QuizConfigForm = () => {
       const quizText = await response.json();
       const formattedQuiz = formatQuiz(quizText);
       saveQuiz(formattedQuiz);
-      navigate('/quizgen', { state: { quizData: formattedQuiz } });
+      navigate('/quizhub', { state: { quizData: formattedQuiz } });
     } catch (error) {
       console.error('Error generating quiz:', error);
     }finally{
@@ -111,7 +111,7 @@ const QuizConfigForm = () => {
                     <option value="hard">Hard</option>
                     </Select>
                 </div>
-                <Button type="submit">Generate Quiz</Button>
+                <Button gradientDuoTone="tealToLime" type="submit">Generate Quiz</Button>
                 </form>
             </div>
         )}
