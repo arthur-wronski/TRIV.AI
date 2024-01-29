@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const QuizConfigForm = () => {
   const [numberOfQuestions, setNumberOfQuestions] = useState('');
   const [theme, setTheme] = useState('');
-  const [difficulty, setDifficulty] = useState('');
+  const [difficulty, setDifficulty] = useState('easy');
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,10 +26,7 @@ const QuizConfigForm = () => {
       }
 
       const quizText = await response.json();
-      console.log(quizText);
-      console.log(JSON.stringify(quizText));
       const formattedQuiz = formatQuiz(quizText);
-      console.log(formattedQuiz);
       navigate('/quizgen', { state: { quizData: formattedQuiz } });
     } catch (error) {
       console.error('Error generating quiz:', error);
@@ -39,13 +36,11 @@ const QuizConfigForm = () => {
   };
 
   const formatQuiz = (quizText) => {
-    console.log(quizText);
     const quizRegex = /Question \d+: (.*?)\nA\. (.*?)\nB\. (.*?)\nC\. (.*?)\nD\. (.*?)\nCorrect answer: (\w)/gs;
     let match;
     const formattedQuiz = [];
   
     while ((match = quizRegex.exec(quizText)) !== null) {
-      console.log(match); // Log the match to see what is being captured
       formattedQuiz.push({
         question: match[1],
         options: {
