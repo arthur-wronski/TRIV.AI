@@ -1,39 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { OpenAI } from 'openai'; 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import {Button} from 'flowbite-react';
 
 const QuizGenerator = () => {
-  const [quiz, setQuiz] = useState('');
-  const location = useLocation();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const quizData = location.state?.quizData || [];
   
-  const { numberOfQuestions, theme, difficulty } = location.state || {};
-
-  useEffect(() => {
-    if (location.state) {
-      handleQuizRequest(location.state);
-    }
-  }, [location.state]);
-
-  const handleQuizRequest = async (config) => {
-    const openai = new OpenAI(process.env.OPENAI_API_KEY); 
-
-    try {
-      const response = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: `Create a quiz with ${config.numberOfQuestions} questions about ${config.theme} at a ${config.difficulty} difficulty level.`,
-        max_tokens: 500,
-      });
-      setQuiz(response.data.choices[0].text);
-    } catch (error) {
-      console.error('Error generating quiz:', error);
-    }
+    const handlePlayQuiz = () => {
+      navigate('/playquiz', { state: { quizData } });
+    };
+  
+    return (
+      <div>
+        {quizData.length > 0 ? (
+          <div className='flex flex-col items-center justify-center p-6'>
+            {/* Optionally, preview the quiz here */}
+            <Button onClick={handlePlayQuiz} className="play-quiz-button">
+              Play Quiz
+            </Button>
+          </div>
+        ) : <p>No quiz data available.</p>}
+      </div>
+    );
   };
-
-  return (
-    <div>
-      {quiz ? <div className="quiz">{quiz}</div> : <p>Loading quiz...</p>}
-    </div>
-  );
-};
-
-export default QuizGenerator;
+  
+  export default QuizGenerator;
+  

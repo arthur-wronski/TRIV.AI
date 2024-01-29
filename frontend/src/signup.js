@@ -28,7 +28,7 @@ const SignUp = () => {
     <div className="flex flex-col items-center justify-center p-6">
       <div className="w-full max-w-md">
         {/* Project Title */}
-        <h1 className="text-6xl font-bold text-center mb-8">TRIVIA QUEST</h1>
+        <h1 className="text-6xl font-bold text-center mb-8">Trivia Test</h1>
 
         <h2 className="mb-6 text-2xl font-bold text-center">Sign Up</h2>
         {isSignedUp ? ( 
