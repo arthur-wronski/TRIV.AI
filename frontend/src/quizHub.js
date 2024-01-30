@@ -6,16 +6,16 @@ import { app } from './firebaseConfig';
 
 const QuizGenerator = () => {
     const navigate = useNavigate();
-    const [createdQuizzes, setCreatedQuizzes] = useState([]); 
+    const [createdQuizzes, setCreatedQuizzes] = useState([]);
     const db = getFirestore(app);
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchCreatedQuizzes();
     }, []);
 
     const handlePlayQuiz = (quizDocId) => {
-        navigate(`/playquiz/${quizDocId}`); 
+        navigate(`/playquiz/${quizDocId}`);
     };
 
     const handleGenerateQuiz = () => {
@@ -31,7 +31,7 @@ const QuizGenerator = () => {
             querySnapshot.forEach((doc) => {
                 console.log(`${doc.id} => ${doc.data()}`);
                 const quiz = doc.data();
-                quiz.id = doc.id; 
+                quiz.id = doc.id;
                 quizzes.push(quiz);
             });
             setCreatedQuizzes(quizzes);
@@ -46,7 +46,7 @@ const QuizGenerator = () => {
             const quizDoc = doc(db, 'quizzes', quizId);
             await deleteDoc(quizDoc);
             console.log(`Quiz with ID ${quizId} deleted successfully`);
-            fetchCreatedQuizzes(); 
+            fetchCreatedQuizzes();
         } catch (error) {
             console.error(`Error deleting quiz with ID ${quizId}:`, error);
         }
@@ -54,7 +54,7 @@ const QuizGenerator = () => {
 
     const renderQuizTable = () => {
         if (loading) {
-            return <p>Loading...</p>; 
+            return <p>Loading...</p>;
         }
 
         if (createdQuizzes.length === 0) {
@@ -97,7 +97,7 @@ const QuizGenerator = () => {
             <Navbar fluid className="navbar bg-black text-white">
                 <div className="flex justify-center w-full">
                     <Link to="/quizhub" className="brand-link">
-                        <span className="text-2xl font-bold">Triv.IA</span> 
+                        <span className="text-2xl font-bold">Triv.IA</span>
                     </Link>
                 </div>
             </Navbar>

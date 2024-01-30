@@ -15,6 +15,7 @@ const QuizConfigForm = () => {
   const saveQuiz = async (quizData) => {
     try {
       const docRef = await addDoc(collection(db, 'quizzes'), {
+        //TODO: add user field so users can view their won quizzes rather than alway having global quizzes displayed
         title: theme,
         quizData,
         highestScore: 0,
