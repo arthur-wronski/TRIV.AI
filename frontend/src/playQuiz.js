@@ -6,7 +6,7 @@ import { app } from './firebaseConfig';
 
 const PlayQuiz = () => {
   const navigate = useNavigate();
-  const { quizDocId } = useParams();
+  const { quizDocId } = useParams(); //gets quiz document id from url
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState('');
@@ -18,6 +18,7 @@ const PlayQuiz = () => {
     fetchQuizData(quizDocId);
   }, [quizDocId]);
 
+  //fetches quizData (questions and answers), based on the quiz document id(this is fetched from url)
   const fetchQuizData = async (docId) => {
     const db = getFirestore(app);
     const quizDocRef = doc(db, 'quizzes', docId);
@@ -36,7 +37,7 @@ const PlayQuiz = () => {
       console.error('Error fetching quiz data:', error);
     }
   };
-
+  //handles user answer verification
   const handleAnswer = (answer) => {
     setSelectedAnswer(answer);
     const isCorrect = answer === quizData[currentQuestionIndex].correctAnswer;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { Button, TextInput, Label, Forms } from 'flowbite-react';
+import { Button, TextInput, Label, Forms } from 'flowbite-react'; //TODO: replace form with flowbite Forms
 import {app} from './firebaseConfig';
 import { Link } from 'react-router-dom';
 

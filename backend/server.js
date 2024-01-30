@@ -40,7 +40,7 @@ Correct answer: A
 Please continue in this format for the remaining questions.`;
         const response = await openai.chat.completions.create({
             messages: [{ role: "user", content: prompt }],
-            model: "gpt-3.5-turbo",
+            model: "gpt-3.5-turbo", //change to gpt-4-turbo-preview if 3.5 is being bad :)
         });
         res.json(response.choices[0].message.content);
         console.log("Quiz text from OpenAI:", response.choices[0].message.content);
